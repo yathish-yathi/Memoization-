@@ -1,0 +1,52 @@
+tags : Easy, T O(n) ,S O(1)
+link : https://leetcode.com/problems/majority-element/description/
+we can sovle problem also using hashMap by tracking frequncy but it will have S O(n/2)
+
+class Solution {
+    //if elements are name of person written in chit for voting, then vote of 
+    // one person will conceled by vote of different person
+    // In this problem name of same person(vote) present more than n/2 vote of 
+    // majority person will be greater than 0
+    public int majorityElement(int[] nums) {
+        //init as per firt element/name and its vote(count)
+        int majority=nums[0];
+        int vote=1;
+
+        for(int cur=1; cur<nums.length; cur++){
+            if(vote==0){
+                //at any point vote became 0 then re initialise majority and vote
+                majority=nums[cur];
+                vote=1;
+            }else if(majority==nums[cur]){//person with majorty's name comes again 
+            //then update his vote
+                vote++;
+            }else{//different persons name comes then reduce previous persons majority
+            vote--;
+            }
+        }
+        return majority;
+    }
+}
+
+//problem//
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+ 
+
+Example 1:
+
+Input: nums = [3,2,3]
+Output: 3
+Example 2:
+
+Input: nums = [2,2,1,1,1,2,2]
+Output: 2
+ 
+
+Constraints:
+
+n == nums.length
+1 <= n <= 5 * 104
+-109 <= nums[i] <= 109
